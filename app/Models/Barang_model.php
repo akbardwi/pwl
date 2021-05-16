@@ -14,4 +14,17 @@ class Barang_model extends Model{
 		$query = $this->get();
 		return $query->getResultArray();
 	}
+
+	// Cek Kode Produk
+	public function check_code($code){
+		$this->select('*');
+		$this->where('kode',$code);
+		$query = $this->get();
+		return $query->getRowArray();
+	}
+
+	// Tambah Data
+	public function tambah($data){
+		$this->save($data);
+	}
 }

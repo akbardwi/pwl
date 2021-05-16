@@ -30,8 +30,8 @@
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <!-- <img src="<?= base_url(); ?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
-                        <img src="https://avatars.githubusercontent.com/u/11191442?v=4" class="img-circle elevation-2" alt="User Image">
+                        <img src="<?= base_url(); ?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <!-- <img src="https://avatars.githubusercontent.com/u/11191442?v=4" class="img-circle elevation-2" alt="User Image"> -->
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Akbar Dwi Syahputra</a>
@@ -98,6 +98,34 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <?php
+                                    $error = session()->getFlashdata('error');
+                                    $errors = session()->getFlashdata('errors');
+                                    $success = session()->getFlashdata('success');
+                                    if(!empty($errors)){ ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                        <?php foreach ($errors as $errors) : ?>
+                                            <li><?= esc($errors) ?></li>
+                                        <?php endforeach ?>
+                                        </ul>
+                                    </div>
+                                    <br />
+                                    <?php } else if(!empty($error)){ ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                            <li><?= esc($error) ?></li>
+                                        </ul>
+                                    </div>
+                                    <br />
+                                    <?php } else if(!empty($success)){ ?>
+                                    <div class="alert alert-success" role="alert">
+                                        <ul>
+                                            <li><?= esc($success) ?></li>
+                                        </ul>
+                                    </div>
+                                    <br />
+                                    <?php } ?>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -142,6 +170,51 @@
                 <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="<?= base_url("home/tambah"); ?>" method="post">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Kode Barang <span class="text-danger">*</span></label>
+                                            <input type="text" name="kode" id="kode" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Nama Barang <span class="text-danger">*</span></label>
+                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Harga <span class="text-danger">*</span></label>
+                                            <input type="number" name="harga" id="harga" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
@@ -185,7 +258,16 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        buttons: [
+            {
+                text: 'Tambah',
+                action: function ( e, dt, node, config ) {
+                    // Call Modal Tambah Barang
+                    $('#exampleModal').modal('show');
+                }
+            }
+        ]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
