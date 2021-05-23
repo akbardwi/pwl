@@ -133,6 +133,7 @@
                                                 <th>Kode</th>
                                                 <th>Nama Barang</th>
                                                 <th>Harga</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -144,6 +145,10 @@
                                                 <td><?= $data['kode']; ?></td>
                                                 <td><?= $data['nama_barang']; ?></td>
                                                 <td><?= "Rp " . number_format($data["harga"],2,',','.')?></td>
+                                                <td>
+                                                    <a href="javascript:void(0)" data-kode="<?= $data['kode']; ?>" class="btn btn-primary btn-edit">Edit</a>
+                                                    <a href="<?= base_url("home/hapus/".$data['kode']); ?>" class="btn btn-danger">Hapus</a>
+                                                </td>
                                             </tr>
                                             <?php 
                                             $no++;
@@ -155,6 +160,7 @@
                                                 <th>Kode</th>
                                                 <th>Nama Barang</th>
                                                 <th>Harga</th>
+                                                <th></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -210,6 +216,27 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit Data -->
+            <div class="modal fade" id="detailBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="<?= base_url("home/edit"); ?>" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="detailBarangTitle" style="color: black">Edit Data Barang</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="dataBarang"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary" name="edit">Simpan</button>
                             </div>
                         </form>
                     </div>
@@ -279,6 +306,25 @@
       "responsive": true,
     });
   });
+</script>
+<script type="text/javascript">
+    $('.btn-edit').on('click',function(){
+        const data = "<img src='assets/img/loading.gif'/> Silahkan Tunggu";
+        $('#dataBarang').html(data);
+        // get data from button edit
+        const kode = $(this).data('kode');
+        // Set data to Form Edit
+        $.ajax({
+			url: '<?= base_url();?>/home/getData/'+kode,
+			type: 'get',
+			success: function(data) {
+				// Show Data
+				$('#dataBarang').html(data);
+			}
+		});
+        // Call Modal Detail Pendaftar
+        $('#detailBarang').modal('show');
+    });
 </script>
 </body>
 </html>

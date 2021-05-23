@@ -27,4 +27,16 @@ class Barang_model extends Model{
 	public function tambah($data){
 		$this->save($data);
 	}
+
+	// Edit
+	public function edit($data){
+		$this->where('kode',$data['kode']);
+		$this->replace($data);
+	}
+	
+	// Delete
+	public function hapus($kode){
+		$this->where('kode',$kode);
+		$this->delete();
+	}
 }
