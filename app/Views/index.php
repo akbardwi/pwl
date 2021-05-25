@@ -131,20 +131,24 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode</th>
-                                                <th>Nama Barang</th>
-                                                <th>Harga</th>
+                                                <th>Nama Pelanggan</th>
+                                                <th>Alamat</th>
+                                                <th>No. Telpon</th>
+                                                <th>Kota</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php 
                                             $no = 1;
-                                            foreach($barang as $data){?>
+                                            foreach($pelanggan as $data){?>
                                             <tr>
                                                 <td><?= $no; ?></td>
                                                 <td><?= $data['kode']; ?></td>
-                                                <td><?= $data['nama_barang']; ?></td>
-                                                <td><?= "Rp " . number_format($data["harga"],2,',','.')?></td>
+                                                <td><?= $data['nama_plggn']; ?></td>
+                                                <td><?= $data['alamat']; ?></td>
+                                                <td><?= $data['no_telp']; ?></td>
+                                                <td><?= $data['kota']; ?></td>
                                                 <td>
                                                     <a href="javascript:void(0)" data-kode="<?= $data['kode']; ?>" class="btn btn-primary btn-edit">Edit</a>
                                                     <a href="<?= base_url("home/hapus/".$data['kode']); ?>" class="btn btn-danger">Hapus</a>
@@ -158,8 +162,10 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode</th>
-                                                <th>Nama Barang</th>
-                                                <th>Harga</th>
+                                                <th>Nama Pelanggan</th>
+                                                <th>Alamat</th>
+                                                <th>No. Telpon</th>
+                                                <th>Kota</th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
@@ -191,7 +197,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Kode Barang <span class="text-danger">*</span></label>
+                                            <label>Kode <span class="text-danger">*</span></label>
                                             <input type="text" name="kode" id="kode" class="form-control" required>
                                         </div>
                                     </div>
@@ -199,16 +205,32 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Nama Barang <span class="text-danger">*</span></label>
-                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control" required>
+                                            <label>Nama Pelanggan <span class="text-danger">*</span></label>
+                                            <input type="text" name="nama_plggn" id="nama_plggn" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Harga <span class="text-danger">*</span></label>
-                                            <input type="number" name="harga" id="harga" class="form-control" required>
+                                            <label>Alamat <span class="text-danger">*</span></label>
+                                            <input type="text" name="alamat" id="alamat" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>No. Telpon <span class="text-danger">*</span></label>
+                                            <input type="number" name="no_telp" id="no_telp" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Kota <span class="text-danger">*</span></label>
+                                            <input type="text" name="kota" id="kota" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>

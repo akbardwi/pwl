@@ -4,13 +4,15 @@ namespace App\Controllers;
 
 // Load Model
 use App\Models\Barang_model;
+use App\Models\Pelanggan_model;
 // End Load Model
 
 class Home extends BaseController{
 	public function index()	{
-		$model = new Barang_model();
+		// $model = new Barang_model();
+		$model = new Pelanggan_model();
 		$data = [
-			'barang'	=> $model->listing()
+			'pelanggan'	=> $model->listing()
 		];
 		return view('index', $data);
 	}
@@ -22,16 +24,20 @@ class Home extends BaseController{
 			return redirect()->to(base_url());
 		} else {
 			$kode = filter_var($this->request->getVar('kode'), FILTER_SANITIZE_STRING);
-			$nama_barang = filter_var($this->request->getVar('nama_barang'), FILTER_SANITIZE_STRING);
-			$harga = filter_var($this->request->getVar('harga'), FILTER_SANITIZE_STRING);
+			$nama_plggn = filter_var($this->request->getVar('nama_plggn'), FILTER_SANITIZE_STRING);
+			$alamat = filter_var($this->request->getVar('alamat'), FILTER_SANITIZE_STRING);
+			$no_telp = filter_var($this->request->getVar('no_telp'), FILTER_SANITIZE_NUMBER_INT);
+			$kota = filter_var($this->request->getVar('kota'), FILTER_SANITIZE_STRING);
 
 			$data = [
 				'kode'			=> $kode,
-				'nama_barang'	=> $nama_barang,
-				'harga'			=> $harga
+				'nama_plggn'	=> $nama_plggn,
+				'alamat'		=> $alamat,
+				'no_telp'		=> $no_telp,
+				'kota'			=> $kota
 			];
 
-			$model = new Barang_model();
+			$model = new Pelanggan_model();
 			$cek = $model->check_code($kode);
 
 			if($cek){
@@ -46,11 +52,11 @@ class Home extends BaseController{
 
 	//Fungsi Get Data
 	public function getData($code){
-		$model = new Barang_model();
-		$barang = $model->check_code($code);
+		$model = new Pelanggan_model();
+		$plggn = $model->check_code($code);
 
 		$data = [
-			'data'		=> $barang
+			'data'		=> $plggn
 		];
 		return view('data', $data);
 	}
@@ -61,17 +67,21 @@ class Home extends BaseController{
 		if($method == "POST"){
 			$id = filter_var($this->request->getVar('id'), FILTER_SANITIZE_STRING);
 			$kode = filter_var($this->request->getVar('kode'), FILTER_SANITIZE_STRING);
-			$nama_barang = filter_var($this->request->getVar('nama_barang'), FILTER_SANITIZE_STRING);
-			$harga = filter_var($this->request->getVar('harga'), FILTER_SANITIZE_STRING);
+			$nama_plggn = filter_var($this->request->getVar('nama_plggn'), FILTER_SANITIZE_STRING);
+			$alamat = filter_var($this->request->getVar('alamat'), FILTER_SANITIZE_STRING);
+			$no_telp = filter_var($this->request->getVar('no_telp'), FILTER_SANITIZE_NUMBER_INT);
+			$kota = filter_var($this->request->getVar('kota'), FILTER_SANITIZE_STRING);
 
 			$data = [
 				'id'			=> $id,
 				'kode'			=> $kode,
-				'nama_barang'	=> $nama_barang,
-				'harga'			=> $harga
+				'nama_plggn'	=> $nama_plggn,
+				'alamat'		=> $alamat,
+				'no_telp'		=> $no_telp,
+				'kota'			=> $kota
 			];
 
-			$model = new Barang_model();
+			$model = new Pelanggan_model();
 			$edit = $model->edit($data);
 
 			if($edit){
@@ -87,7 +97,7 @@ class Home extends BaseController{
 
 	//Fungsi Hapus Data
 	public function hapus($kode){
-		$model = new Barang_model();
+		$model = new Pelanggan_model();
 		$model->hapus($kode);
 
 		session()->setFlashdata('success', 'Data berhasil dihapus.');
