@@ -75,7 +75,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Data Barang</h1>
+                            <h1>Data Pelanggan</h1>
                         </div>
                         <!-- <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -94,7 +94,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Barang</h3>
+                                    <h3 class="card-title">Data Pelanggan</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -187,7 +187,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Pelanggan</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -250,7 +250,7 @@
                     <div class="modal-content">
                         <form action="<?= base_url("home/edit"); ?>" method="post">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="detailBarangTitle" style="color: black">Edit Data Barang</h5>
+                                <h5 class="modal-title" id="detailBarangTitle" style="color: black">Edit Data Pelanggan</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -312,7 +312,7 @@
             {
                 text: 'Tambah',
                 action: function ( e, dt, node, config ) {
-                    // Call Modal Tambah Barang
+                    // Call Modal Tambah Pelanggan
                     $('#exampleModal').modal('show');
                 }
             }
