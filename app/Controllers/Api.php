@@ -19,7 +19,7 @@ class Api extends ResourceController{
             $data = [
                 "reason"    => "Method tidak diizinkan"
             ];
-            return json_encode($data);
+            return $this->respond($data);
         }
 		$model = new Pelanggan_model();
 		$data = $model->findAll();
@@ -33,7 +33,7 @@ class Api extends ResourceController{
             $data = [
                 "reason"    => "Method tidak diizinkan"
             ];
-            return json_encode($data);
+            return $this->respond($data);
         }
         $model = new Pelanggan_model();
         $data = $model->getWhere(['id' => $id])->getResult();
@@ -51,7 +51,7 @@ class Api extends ResourceController{
             $data = [
                 "reason"    => "Method tidak diizinkan"
             ];
-            return json_encode($data);
+            return $this->respond($data);
         }
         $model = new Pelanggan_model();
         $data = $this->request->getPost();
@@ -68,12 +68,16 @@ class Api extends ResourceController{
     }
 
     // Fungsi Update Data
-    public function update($id = null)
-    {
+    public function update($id = null){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method != "POST"){
+            $data = [
+                "reason"    => "Method tidak diizinkan"
+            ];
+            return $this->respond($data);
+        }
         $model = new Pelanggan_model();
         $data = $this->request->getPost();
-        $check = $model->check_code($data['kode']);
-
         // Insert to Database
         $model->update($id, $data);
         $response = [
@@ -88,6 +92,13 @@ class Api extends ResourceController{
 
     // delete product
     public function delete($id = null){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method != "DELETE"){
+            $data = [
+                "reason"    => "Method tidak diizinkan"
+            ];
+            return $this->respond($data);
+        }
         $model = new Pelanggan_model();
         $data = $model->find($id);
         if($data){
