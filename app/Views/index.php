@@ -151,7 +151,7 @@
                                                 <td><?= $data['kota']; ?></td>
                                                 <td>
                                                     <a href="javascript:void(0)" data-kode="<?= $data['kode']; ?>" class="btn btn-primary btn-edit">Edit</a>
-                                                    <a href="<?= base_url("home/hapus/".$data['kode']); ?>" class="btn btn-danger">Hapus</a>
+                                                    <a href="<?= base_url("home/hapus/".$data['id']); ?>" class="btn btn-danger">Hapus</a>
                                                 </td>
                                             </tr>
                                             <?php 

@@ -9,10 +9,10 @@ use App\Models\Pelanggan_model;
 
 class Home extends BaseController{
 	public function index()	{
-		// $model = new Barang_model();
-		$model = new Pelanggan_model();
+		// $model = new Pelanggan_model();
+		$plggn = json_decode(file_get_contents(base_url("api/getData")), true);
 		$data = [
-			'pelanggan'	=> $model->listing()
+			'pelanggan'	=> $plggn
 		];
 		return view('index', $data);
 	}
@@ -43,8 +43,19 @@ class Home extends BaseController{
 			if($cek){
 				session()->setFlashdata('error', 'Kode produk sudah ada.');
 			} else {
-				$model->tambah($data);			
-				session()->setFlashdata('success', 'Data berhasil disimpan.');
+				// $model->tambah($data);			
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, base_url("api/create"));
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				$result = curl_exec($ch);
+				$json_result = json_decode($result, true);
+				if($json_result['status'] == 201){
+					session()->setFlashdata('success', 'Data berhasil disimpan.');
+				}				
 			}
 			return redirect()->to(base_url());
 		}
@@ -82,9 +93,18 @@ class Home extends BaseController{
 			];
 
 			$model = new Pelanggan_model();
-			$edit = $model->edit($data);
+			// $edit = $model->edit($data);
 
-			if($edit){
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, base_url("api/update/".$id));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			$result = curl_exec($ch);
+			$json_result = json_decode($result, true);
+
+			if($json_result['status'] != 200){
 				session()->setFlashdata('error', 'Gagal memperbarui data.');
 			} else {		
 				session()->setFlashdata('success', 'Data berhasil diperbarui.');
@@ -96,9 +116,17 @@ class Home extends BaseController{
 	}
 
 	//Fungsi Hapus Data
-	public function hapus($kode){
+	public function hapus($id){
 		$model = new Pelanggan_model();
-		$model->hapus($kode);
+		// $model->hapus($kode);
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, base_url("api/delete/".$id));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+		$result = curl_exec($ch);
+		$json_result = json_decode($result, true);
 
 		session()->setFlashdata('success', 'Data berhasil dihapus.');
 		return redirect()->to(base_url());
