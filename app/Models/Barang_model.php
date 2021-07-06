@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class Barang_model extends Model{
     protected $table 		= 'barang';
 	protected $primaryKey 	= 'id';
-    protected $allowedFields = ['kode', 'nama_barang', 'harga'];
+    protected $allowedFields = ['kode', 'nama_barang', 'harga', 'gambar'];
 
     // Listing
 	public function listing(){
@@ -30,13 +30,22 @@ class Barang_model extends Model{
 
 	// Edit
 	public function edit($data){
-		$this->where('kode',$data['kode']);
-		$this->replace($data);
+		// $this->where('kode',$data['kode']);
+		// $this->replace($data);
+		$this->update($data['id'], $data);
 	}
 	
 	// Delete
-	public function hapus($kode){
-		$this->where('kode',$kode);
+	public function hapus($id){
+		$this->where('id',$id);
 		$this->delete();
+	}
+
+	//Read
+    public function read($id){
+		$this->select('*');
+		$this->where(['id' => $id]);
+		$query = $this->get();
+		return $query->getRowArray();
 	}
 }

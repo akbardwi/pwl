@@ -75,7 +75,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Data Pelanggan</h1>
+                            <h1>Data Barang</h1>
                         </div>
                         <!-- <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -94,7 +94,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Pelanggan</h3>
+                                    <h3 class="card-title">Data Barang</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -130,25 +130,23 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Gambar</th>
                                                 <th>Kode</th>
-                                                <th>Nama Pelanggan</th>
-                                                <th>Alamat</th>
-                                                <th>No. Telpon</th>
-                                                <th>Kota</th>
+                                                <th>Nama Barang</th>
+                                                <th>Harga</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php 
                                             $no = 1;
-                                            foreach($pelanggan as $data){?>
+                                            foreach($barang as $data){?>
                                             <tr>
                                                 <td><?= $no; ?></td>
+                                                <td><img src="<?= base_url("img/".$data['gambar']); ?>" alt="" style="width:200px;height:250px;"></td>
                                                 <td><?= $data['kode']; ?></td>
-                                                <td><?= $data['nama_plggn']; ?></td>
-                                                <td><?= $data['alamat']; ?></td>
-                                                <td><?= $data['no_telp']; ?></td>
-                                                <td><?= $data['kota']; ?></td>
+                                                <td><?= $data['nama_barang']; ?></td>
+                                                <td><?= "Rp " . number_format($data["harga"],2,',','.')?></td>
                                                 <td>
                                                     <a href="javascript:void(0)" data-kode="<?= $data['kode']; ?>" class="btn btn-primary btn-edit">Edit</a>
                                                     <a href="<?= base_url("home/hapus/".$data['id']); ?>" class="btn btn-danger">Hapus</a>
@@ -161,11 +159,10 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Gambar</th>
                                                 <th>Kode</th>
-                                                <th>Nama Pelanggan</th>
-                                                <th>Alamat</th>
-                                                <th>No. Telpon</th>
-                                                <th>Kota</th>
+                                                <th>Nama Barang</th>
+                                                <th>Harga</th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
@@ -187,12 +184,12 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Pelanggan</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="<?= base_url("home/tambah"); ?>" method="post">
+                        <form action="<?= base_url("home/tambah"); ?>" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="row">
@@ -205,32 +202,24 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Nama Pelanggan <span class="text-danger">*</span></label>
-                                            <input type="text" name="nama_plggn" id="nama_plggn" class="form-control" required>
+                                            <label>Nama Barang <span class="text-danger">*</span></label>
+                                            <input type="text" name="nama_brg" id="nama_brg" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Alamat <span class="text-danger">*</span></label>
-                                            <input type="text" name="alamat" id="alamat" class="form-control" required>
+                                            <label>Harga <span class="text-danger">*</span></label>
+                                            <input type="number" name="harga" id="harga" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>No. Telpon <span class="text-danger">*</span></label>
-                                            <input type="number" name="no_telp" id="no_telp" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label>Kota <span class="text-danger">*</span></label>
-                                            <input type="text" name="kota" id="kota" class="form-control" required>
+                                            <label>Gambar <span class="text-danger">*</span></label>
+                                            <input type="file" name="gambar" id="gambar" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +239,7 @@
                     <div class="modal-content">
                         <form action="<?= base_url("home/edit"); ?>" method="post">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="detailBarangTitle" style="color: black">Edit Data Pelanggan</h5>
+                                <h5 class="modal-title" id="detailBarangTitle" style="color: black">Edit Data Barang</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -312,7 +301,7 @@
             {
                 text: 'Tambah',
                 action: function ( e, dt, node, config ) {
-                    // Call Modal Tambah Pelanggan
+                    // Call Modal Tambah Barang
                     $('#exampleModal').modal('show');
                 }
             }

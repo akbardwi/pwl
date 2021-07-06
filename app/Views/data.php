@@ -10,32 +10,16 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Nama Pelanggan <span class="text-danger">*</span></label>
-                                            <input type="text" name="nama_plggn" id="nama_plggn" class="form-control" value="<?= $data['nama_plggn']; ?>" required>
+                                            <label>Nama Barang <span class="text-danger">*</span></label>
+                                            <input type="text" name="nama_brg" id="nama_brg" class="form-control" value="<?= $data['nama_barang']; ?>" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <label>Alamat <span class="text-danger">*</span></label>
-                                            <input type="text" name="alamat" id="alamat" class="form-control" value="<?= $data['alamat']; ?>" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label>No. Telpon <span class="text-danger">*</span></label>
-                                            <input type="text" name="no_telp" id="no_telp" class="form-control" value="<?= $data['no_telp']; ?>" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label>Kota <span class="text-danger">*</span></label>
-                                            <input type="text" name="kota" id="kota" class="form-control" value="<?= $data['kota']; ?>" required>
+                                            <label>Harga <span class="text-danger">*</span></label>
+                                            <input type="number" name="harga" id="harga" class="form-control" value="<?= $data['harga']; ?>" required>
                                         </div>
                                     </div>
                                 </div>
